@@ -1,0 +1,28 @@
+.modal-dialog{
+    width: 80%;
+}
+
+.modal .row{
+    grid-area: header;
+}
+
+.muestra{
+    grid-area: left;
+}
+
+.pinta{
+    grid-area: right;
+}
+
+.modal-body{
+    display: grid;
+    grid-template-areas:
+        'header header '
+        'left right ';
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.copia{
+    margin-left: 17%;
+}
