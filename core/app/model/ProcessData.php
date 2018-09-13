@@ -58,7 +58,7 @@ class ProcessData {
 		$sql .= "on p.area_id = a.id ";
 		$sql .= "inner join usuario u ";
 		$sql .= "on p.encargado_id = u.id ";
-		$sql .= " order by p.id asc";
+		$sql .= " group by rm.id asc";
 
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new ProcessData());
@@ -83,7 +83,31 @@ class ProcessData {
 		$sql .= "inner join usuario u ";
 		$sql .= "on p.encargado_id = u.id ";
 		$sql .= "where p.estado=1 and a.nombre <> 'molderia'";
-		$sql .= " order by id asc";
+		$sql .= " order by p.id asc";
+
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new ProcessData());
+
+	}
+
+	public static function getAllActiveGroup(){
+		$sql = "select r.nombre as referencia, c.nombre as coleccion, em.nombre as muestra, a.nombre as area, u.nombre as encargado, p.* from ".self::$tablename." p ";
+		$sql .= "inner join referenciaMuestra rm ";
+		$sql .= "on p.referenciamuestra_id = rm.id ";
+		$sql .= "inner join referenciacoleccion rc ";
+		$sql .= "on rm.referenciacoleccion_id = rc.id ";
+		$sql .= "inner join referencia r ";
+		$sql .= "on r.id = rc.referencia_id ";
+		$sql .= "inner join coleccion c ";
+		$sql .= "on rc.coleccion_id = c.id ";
+		$sql .= "inner join estadomuestra em ";
+		$sql .= "on rm.muestra_id = em.id ";
+		$sql .= "inner join area a ";
+		$sql .= "on p.area_id = a.id ";
+		$sql .= "inner join usuario u ";
+		$sql .= "on p.encargado_id = u.id ";
+		$sql .= "where p.estado=1 and a.nombre <> 'molderia'";
+		$sql .= " group by rm.id asc";
 
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new ProcessData());

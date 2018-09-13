@@ -13,19 +13,19 @@
 				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#newUser"><i class='fa fa-user'></i> Nuevo Usuario</a>
 				<?php if(count($users)>0){ ?> <!-- // si hay usuarios --> 
 					<table class="table table-bordered table-hover">
-						<tr>
-							<th>Usuario</th>
-							<th>Contraseña</th>
-							<th>Rol</th>
-							<th>Planta</th>
-							<th>Area</th>
+						<thead>
+							<th>USUARIO</th>
+							<th>CONTRASEÑA</th>
+							<th>TIPO USUARIO</th>
+							<th>PLANTA</th>
+							<th>AREA</th>
 							<th></th>
-						</tr>
+						</thead>
 					<?php foreach($users as $user){	?>
 						<tr>
 							<td><?php echo $user->nombre; ?></td>
 							<td><?php echo $user->contra; ?></td>
-							<td><?php echo ($user->rol == 1) ? 'Administrador' : 'Usuario'; ?></td>
+							<td><?php echo ($user->rol == 1) ? 'Administrador' : 'Normal'; ?></td>
 							<td><?php echo $user->planta; ?></td>
 							<td><?php echo $user->area; ?></td>
 							<td style="width:180px;">
@@ -73,8 +73,7 @@
 			</select>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save changes</button>
+			<button type="submit" class="btn btn-primary">Crear</button>
 		</div>
 	  </form>
     </div>

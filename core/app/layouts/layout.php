@@ -40,37 +40,37 @@
           <?php if(isset($_SESSION['user_id']) && Core::$user->rol == 1){ ?>          
           <li>
             <a href="./?view=coleccion">
-              <i class="fa fa-ticket"></i>
+              <i class="fa fa-sitemap"></i>
               <p>Colecciones</p>
             </a>    
           </li>
           <li>
               <a href="./?view=referencias">
-                  <i class="fa fa-flask"></i>
+                  <i class="fa fa-tag"></i>
                   <p>Referencias</p>
               </a>
           </li>
           <li>
             <a href="./?view=categoria">
-              <i class="fa fa-building"></i>
-              <p>Categorias</p>
+              <i class="fa fa-cubes"></i>
+              <p>Familias</p>
             </a>
           </li>
           <li>
             <a href="./?view=areas">
-              <i class="fa fa-cubes"></i>
+              <i class="fa fa-map-marker"></i>
               <p>Areas</p>
             </a>
           </li>
           <li>
             <a href="./?view=estadoMuestra">
-              <i class="fa fa-th-list"></i>
+              <i class="fa fa fa-braille"></i>
               <p>Estado Muestra</p>
             </a>
           </li>
           <li>
             <a href="./?view=plantas">
-              <i class="fa fa-area-chart"></i>
+              <i class="fa fa-building"></i>
               <p>Plantas</p>
             </a>
           </li>

@@ -1,7 +1,9 @@
 <?php
-	 $activas = ProcessData::getAllActive();
+	$user = Core::$user;
+	 $activas = ProcessData::getAllActiveGroup();
 	 $allProcess = ProcessData::getAll();
 	 $processMolderia = ProcessData::getAllMolderia();
+	 $areas = AreaData::getAll();
  ?>
 <div class="row"> 
 	<div class="col-md-12">
@@ -11,23 +13,25 @@
   			</div>
 			<main>
 				<input id="tab1" type="radio" name="tabs" checked>
-				<label for="tab1">En Curso</label>
+				<label for="tab1">EN CURSO</label>
 				<input id="tab2" type="radio" name="tabs">
-				<label for="tab2">Historial</label>
+				<label for="tab2">HISTORICO</label>
+				<?php if($user != null && ($user->nombre == 'admin' || $user->area_id == 4)){ ?>
 				<input id="tab3" type="radio" name="tabs">
-				<label for="tab3">Moldería</label>
+				<label for="tab3">MOLDERÍA</label>
+				<?php } ?>
 				<section id="content1">
 					<div class="card-content table-responsive">
 						<?php if(count($activas)>0){ ?> <!--// si hay tickets -->
 						<table class="table table-bordered table-hover">
-							<tr>
+							<thead>
 								<th>COLECCIÓN</th>
 								<th>REFERENCIA</th>
 								<th>ESTADO MUESTRA</th>
 								<th>AREA</th>
 								<th>ENCARGADO</th>
 								<th style="width:120px;"></th>
-							</tr>
+							</thead>
 							<?php
 								foreach($activas as $activa){
 							?>
@@ -52,11 +56,11 @@
 					<div class="card-content table-responsive">
 						<?php if(count($allProcess)>0){ ?> <!--// si hay tickets -->
 						<table class="table table-bordered table-hover">
-							<tr>
+							<thead>
 								<th>COLECCIÓN</th>
 								<th>REFERENCIA</th>
 								<th>MUESTRA</th>
-							</tr>
+							</thead>
 							<?php
 								foreach($allProcess as $process){
 							?>
@@ -84,26 +88,18 @@
 					<div class="card-content table-responsive">
 						<?php if(count($processMolderia)>0){ ?> <!--// si hay tickets -->
 						<table class="table table-bordered table-hover">
-							<tr>
+							<thead>
 								<th>COLECCIÓN</th>
 								<th>REFERENCIA</th>
 								<th>ESTADO MUESTRA</th>
-							</tr>
+							</thead>
 							<?php
-								foreach($processMolderia as $pmoderia){
+								foreach($processMolderia as $pmolderia){
 							?>
-							<tr>
-								<td><?php echo $pmoderia->coleccion; ?></td>
-								<td><?php echo $pmoderia->referencia; ?></td>
-								<td><?php echo $pmoderia->muestra; ?></td>
-							</tr>
-							<tr class="collapse" id="<?php echo $ticket->id; ?>">
-								<td colspan="6" style="padding:0;" >	 
-									<form class="form-group" method="POST" action="index.php?action=addcomment&id=<?php echo $ticket->id;?>">
-										<textarea class="form-control col-md-12" id="comentario" name="comentario"  placeholder="Comentario..." ></textarea>
-										<input type="submit" class="btn btn-primary btn-xs" value="Enviar">
-									</form>
-								</td>
+							<tr data-toggle="modal" data-target="#entregarModal" onclick="entregarRef(<?php echo $pmolderia->id ?>)">
+								<td><?php echo $pmolderia->coleccion; ?></td>
+								<td><?php echo $pmolderia->referencia; ?></td>
+								<td><?php echo $pmolderia->muestra; ?></td>
 							</tr>
 						<?php } ?>
 						</table> 
@@ -117,3 +113,73 @@
 	</div>
 </div>
 <!-- Button to Open the Modal -->
+<div class="modal fade" id="entregarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >ENTREGAR</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+	  </div>
+	  <form action="./index.php?action=entregaProcessRef" method="POST">
+		<div class="modal-body">
+			<h2 id="refEntrega"></h2>
+			<span id="colEntrega"></span>
+			<span id="mueEntrega"></span>
+			<span id="pinEntrega"></span>
+			<select name="area_id" id="area" required>
+					<option value=""></option>
+					<?php foreach ($areas as $area) { ?>
+						<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
+					<?php  } ?>
+			</select>
+		</div>
+		<div class="modal-footer">
+			<input type="hidden" id="idE" name="idEntrega">
+			<button type="submit" class="btn btn-primary">Crear</button>
+		</div>
+	  </form>
+    </div>
+  </div>
+</div>
+<script>
+	function entregarRef(id){
+		let refEntrega = document.querySelector('#refEntrega');
+		let colEntrega = document.querySelector('#colEntrega');
+		let mueEntrega = document.querySelector('#mueEntrega');
+		let pinEntrega = document.querySelector('#pinEntrega');
+		let idInput = document.querySelector('#idE');
+		var params = {
+                "id" : id
+        };
+        $.ajax({
+			data:  params,
+			url:   './?action=getRefById',
+			dataType: 'json',
+			type:  'get',
+			beforeSend: function () {
+			},
+			success:  function (response) {
+				console.log(response);
+				idInput.value = response.id;
+				refEntrega.innerHTML = response.referencia;
+				colEntrega.innerHTML = response.coleccion;
+				mueEntrega.innerHTML = response.muestra;
+				while (pinEntrega.hasChildNodes()) {
+    				pinEntrega.removeChild(pinEntrega.childNodes[0]);
+				}
+				response.pinta.forEach(function(pin){
+					let check = document.createElement('INPUT');
+					check.setAttribute("type", "checkbox");
+					check.name = 'pinta[]';
+					check.value = pin.codigo;
+					console.log(check);
+					pinEntrega.appendChild(check);
+					pinEntrega.innerHTML += `#${pin.codigo}`;
+				});
+
+			}
+		});
+	}
+</script>

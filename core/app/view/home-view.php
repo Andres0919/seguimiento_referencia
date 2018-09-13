@@ -16,13 +16,13 @@
 				  <?php } ?>
 				<?php if(count($references)>0){// si hay usuarios ?>
 				<table class="table table-bordered table-hover">
-					<tr>
+					<thead>
 						<th>COLECCIÓN</th>
 						<th>REFERENCIA</th>
 						<th>ESTADO MUESTRA</th>
 						<th>PROCESO</th>
 						<th></th>
-					</tr>
+					</thead>
 					<?php foreach($references as $refe){ ?>
 						<tr data-toggle="modal" data-target="#<?php echo ($refe->isReceived )? 'entregar' : 'recibir'?>Modal" onclick="<?php echo ($refe->isReceived)? 'entregar' : 'recibir' ?>Ref(<?php echo $refe->id ?>)">
 							<td><?php echo $refe->coleccion; ?></td>
@@ -87,8 +87,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save changes</button>
+			<button type="submit" class="btn btn-primary">Crear</button>
 		</div>
 	  </form>
     </div>
@@ -115,8 +114,7 @@
 		</div>
 		<div class="modal-footer">
 			<input type="hidden" id="idR" name="idRecibir">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save changes</button>
+			<button type="submit" class="btn btn-primary">Recibir</button>
 		</div>
 	  </form>
     </div>
@@ -149,8 +147,7 @@
 		</div>
 		<div class="modal-footer">
 			<input type="hidden" id="idE" name="idEntrega">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save changes</button>
+			<button type="submit" class="btn btn-primary">Entregar</button>
 		</div>
 	  </form>
     </div>

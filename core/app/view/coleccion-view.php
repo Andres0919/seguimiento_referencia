@@ -5,17 +5,17 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header" data-background-color="blue">
-				<h4 class="title">Colección</h4>
+				<h4 class="title">Colecciones</h4>
 			</div>
 			<div class="card-content table-responsive">
 				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Nueva Colección</a>
 			<?php
 				if(count($colecciones)>0){ ?> <!-- // si hay usuarios -->
 				<table class="table table-bordered table-hover">
-					<tr>
-						<th>Nombre</th>
+					<thead>
+						<th>NOMBRE</th>
 						<th style="width:80px;"></th>
-					</tr>
+					</thead>
 					<?php
 					foreach($colecciones as $coleccion){?>
 						<tr>
@@ -38,7 +38,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Estado Muestara</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Colección</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -46,11 +46,10 @@
 	  <form action="./index.php?action=addColeccion" method="POST">
 		<div class="modal-body">
 			<span>Nombre</span>
-			<input name="nombre" type="text">
+			<input name="nombre" type="text" autocomplete="off">
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save changes</button>
+			<button type="submit" class="btn btn-primary">Crear</button>
 		</div>
 	  </form>
     </div>

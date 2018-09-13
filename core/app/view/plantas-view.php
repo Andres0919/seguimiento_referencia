@@ -11,10 +11,10 @@
 				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Nueva Planta</a>
 				<?php if(count($plantas)>0){ ?> <!--// si hay plantas  -->
 				<table class="table table-bordered table-hover">
-					<tr>
-						<th>Nombre</th>
+					<thead>
+						<th>NOMBRE</th>
 						<th style="width:80px;"></th>
-					</tr>
+					</thead>
 					<?php foreach($plantas as $planta){ ?>
 					<tr>
 						<td><?php echo $planta->nombre; ?></td>
@@ -47,8 +47,7 @@
 			<input name="nombre" type="text">
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save changes</button>
+			<button type="submit" class="btn btn-primary">Crear</button>
 		</div>
 	  </form>
     </div>
