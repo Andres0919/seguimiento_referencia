@@ -7,8 +7,8 @@
 		}
 
 		public function add(){
-			$sql = "insert into referencia (nombre) ";
-			$sql .= "value (\"$this->nombre\")";
+			$sql = "insert into referencia (nombre,categoria_id) ";
+			$sql .= "value (\"$this->nombre\",$this->categoria_id)";
 
 			return Executor::doit($sql);
 		}

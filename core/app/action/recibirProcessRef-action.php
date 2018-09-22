@@ -11,7 +11,7 @@
         $user = Core::$user;
     }
     $proceso_area = ProcessData::getById($id)->area_id;
-    if ($user->area_id != $proceso_area) {
+    if ($user->area_id != $proceso_area && $user->id != 1) {
         $alert = "El area no coincide";
         Core::redir("./index.php?view=home&alert=".$alert);
         die();

@@ -1,4 +1,7 @@
-<?php $referencias = ReferenciaData::getAll(); ?>
+<?php
+  $referencias = ReferenciaData::getAll(); 
+	$familias = CategoryData::getAll();	
+?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -43,6 +46,12 @@
 		<div class="modal-body">
 			<span>Nombre</span>
 			<input name="nombre" type="text" autocomplete="off">
+			<span>Familia</span>
+			<select name="familia" id="familia">
+				<?php foreach($familias as $familia){ ?>
+					<option value="<?php echo $familia->id ?>"><?php echo $familia->nombre ?></option>
+				<?php } ?>
+			</select>
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">Crear</button>

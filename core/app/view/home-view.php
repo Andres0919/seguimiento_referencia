@@ -36,7 +36,7 @@
 					<?php } ?>
 				</table>
 				<?php }else{ ?>
-				<p class='alert alert-danger'>No Hay Referencias</p>
+				<p class='alert alert-danger'>No Hay Referencias en curso</p>
 				<?php }	?>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Estado Muestara</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nueva referencia en curso</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -93,7 +93,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="recibirModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modaltr" id="recibirModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -104,13 +104,17 @@
 	  </div>
 	  <form action="./index.php?action=recibirProcessRef" method="POST">
 		<div class="modal-body">
-			<h2 id="refRecibida"></h2>
-			<span id="colRecibida"></span>
-			<span id="mueRecibida"></span>
-			<span id="pinRecibida"></span>
-			<?php if(!$user){ ?>
-			<input type="password" name="pass" required>
-			<?php } ?>
+			<div class="header">
+				<p id="refRecibida" class="nameRef"></p>
+				<span id="mueRecibida"></span><br/>
+				<span id="colRecibida"></span>
+			</div>
+			<div class="body">
+				<span id="pinRecibida"></span><br/>
+				<?php if(!$user){ ?>
+				<input type="password" class="pass" name="pass" required>
+				<?php } ?>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<input type="hidden" id="idR" name="idRecibir">
@@ -120,7 +124,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="entregarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modaltr" id="entregarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -128,28 +132,32 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-	  </div>
-	  <form action="./index.php?action=entregaProcessRef" method="POST">
-		<div class="modal-body">
-			<h2 id="refEntrega"></h2>
-			<span id="colEntrega"></span>
-			<span id="mueEntrega"></span>
-			<span id="pinEntrega"></span>
-			<select name="area_id" id="area" required>
-					<option value=""></option>
-					<?php foreach ($areas as $area) { ?>
-						<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
-					<?php  } ?>
-			</select>
-			<?php if(!$user){ ?>
-			<input type="password" name="pass" required>
-			<?php } ?>
-		</div>
-		<div class="modal-footer">
-			<input type="hidden" id="idE" name="idEntrega">
-			<button type="submit" class="btn btn-primary">Entregar</button>
-		</div>
-	  </form>
+	  	</div>
+			<form action="./index.php?action=entregaProcessRef" method="POST">
+				<div class="modal-body">
+					<div class="header">
+						<p id="refEntrega" class="nameRef"></p>
+						<span id="mueEntrega"></span><br/>
+						<span id="colEntrega"></span>			
+					</div>
+					<div class="body">
+						<span id="pinEntrega"></span><br/>
+						<select name="area_id" id="area" required>
+							<option value=""></option>
+							<?php foreach ($areas as $area) { ?>
+								<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
+							<?php  } ?>
+						</select> <br/>
+						<?php if(!$user){ ?>
+						<input type="password" class="pass" name="pass" required>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" id="idE" name="idEntrega">
+					<button type="submit" class="btn btn-primary">Entregar</button>
+				</div>
+			</form>
     </div>
   </div>
 </div>
@@ -190,7 +198,7 @@
 			beforeSend: function () {
 			},
 			success:  function (response) {
-				console.log(response);
+				// console.log(response);
 				idInput.value = response.id;
 				refRecibida.innerHTML = response.referencia;
 				colRecibida.innerHTML = response.coleccion;
@@ -219,7 +227,7 @@
 			beforeSend: function () {
 			},
 			success:  function (response) {
-				console.log(response);
+				// console.log(response);
 				idInput.value = response.id;
 				refEntrega.innerHTML = response.referencia;
 				colEntrega.innerHTML = response.coleccion;
@@ -230,9 +238,10 @@
 				response.pinta.forEach(function(pin){
 					let check = document.createElement('INPUT');
 					check.setAttribute("type", "checkbox");
+					check.setAttribute('checked', true);
 					check.name = 'pinta[]';
 					check.value = pin.codigo;
-					console.log(check);
+					console.log(check.checked);
 					pinEntrega.appendChild(check);
 					pinEntrega.innerHTML += `#${pin.codigo}`;
 				});
