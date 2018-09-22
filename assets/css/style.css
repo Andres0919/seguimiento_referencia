@@ -1,6 +1,14 @@
 /*
  CSS for the main interaction
 */
+@import url('https://fonts.googleapis.com/css?family=Signika');
+
+body,h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
+  font-family: 'Signika', sans-serif;
+}
+
+
+
 .tabset > input[type="radio"] {
     position: absolute;
     left: -200vw;
@@ -23,14 +31,6 @@
       display: none;
     }
   
-  }
-  /*
-   Styling
-  */
-  body {
-    font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
-    color: #333;
-    font-weight: 300;
   }
   
   .tabset > label {
@@ -92,7 +92,6 @@
     max-width: 100%;
   }
   
-  @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
   body {
     width: 100%;
   }
@@ -230,7 +229,7 @@
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#000', Direction=135, Strength=3);
   }
   .close:hover {
-    background: #00d9ff;
+    background: #A30023;
     -moz-transition: all 0.5s ease-out;
     -webkit-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
@@ -339,4 +338,12 @@
 
 thead {
   background-color: #A30023;
+}
+
+.modal .modal-footer{
+  border-top: 1px solid #ccc;
+}
+
+.modal .modal-footer button{
+  margin: 5px 0;
 }

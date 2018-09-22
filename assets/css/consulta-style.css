@@ -52,3 +52,45 @@ input:checked + label {
 #tab4:checked ~ #content4 {
 	display: block;
 }
+
+.modal-dialog{
+    width: 60%;
+}
+
+.modal .modal-body .header{
+    grid-area: left;
+}
+
+.modal .modal-body .body{
+    grid-area: right;
+    display: grid; 
+}
+
+.modal .modal-body select, .modal .modal-body .pass{
+    width: 80%;
+    height: 22px;
+}
+
+
+.modal .modal-body input,.modal .modal-body select{
+    justify-self: flex-end;
+}
+
+.modal-body{
+    display: grid;
+    grid-template-areas:
+        'left left . right';
+    grid-gap: 100px;
+}
+
+.modal .modal-body .header .nameRef{
+    font-size: 2em;
+}
+
+.copia{
+    margin-left: 17%;
+}
+
+.modal .modal-footer{
+    width: 100%;
+}

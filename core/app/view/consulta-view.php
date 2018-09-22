@@ -124,20 +124,24 @@
 	  </div>
 	  <form action="./index.php?action=entregaProcessRef" method="POST">
 		<div class="modal-body">
-			<h2 id="refEntrega"></h2>
-			<span id="colEntrega"></span>
-			<span id="mueEntrega"></span>
-			<span id="pinEntrega"></span>
-			<select name="area_id" id="area" required>
-					<option value=""></option>
-					<?php foreach ($areas as $area) { ?>
-						<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
-					<?php  } ?>
-			</select>
+			<div class="header">
+				<p id="refEntrega" class="nameRef"></p>
+				<span id="mueEntrega"></span><br/>
+				<span id="colEntrega"></span>
+			</div>
+			<div class="body">
+				<span id="pinEntrega"></span>
+				<select name="area_id" id="area" required>
+						<option value=""></option>
+						<?php foreach ($areas as $area) { ?>
+							<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
+						<?php  } ?>
+				</select>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<input type="hidden" id="idE" name="idEntrega">
-			<button type="submit" class="btn btn-primary">Crear</button>
+			<button type="submit" class="btn btn-primary">ENTREGAR</button>
 		</div>
 	  </form>
     </div>
@@ -172,9 +176,9 @@
 				response.pinta.forEach(function(pin){
 					let check = document.createElement('INPUT');
 					check.setAttribute("type", "checkbox");
+					check.setAttribute('checked', true);
 					check.name = 'pinta[]';
 					check.value = pin.codigo;
-					console.log(check);
 					pinEntrega.appendChild(check);
 					pinEntrega.innerHTML += `#${pin.codigo}`;
 				});

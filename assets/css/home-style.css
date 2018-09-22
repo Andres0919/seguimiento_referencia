@@ -1,28 +1,50 @@
 .modal-dialog{
-    width: 80%;
+    width: 60%;
 }
 
-.modal .row{
-    grid-area: header;
-}
-
-.muestra{
+.modaltr.modal-body .header{
     grid-area: left;
 }
 
-.pinta{
+.modaltr.modal-body .body{
     grid-area: right;
+    display: grid; 
 }
 
-.modal-body{
+.modaltr.modal-body select, .modaltr.modal-body .pass{
+    width: 80%;
+    height: 22px;
+}
+
+
+.modaltr.modal-body input,.modaltr.modal-body select{
+    justify-self: flex-end;
+}
+
+modaltr .modal-body{
     display: grid;
     grid-template-areas:
-        'header header '
-        'left right ';
-    grid-gap: 10px;
-    padding: 10px;
+        'left left . right';
+    grid-gap: 100px;
+}
+
+.modaltr.modal-body .header .nameRef{
+    font-size: 2em;
 }
 
 .copia{
     margin-left: 17%;
+}
+
+.modaltr.modal-footer{
+    width: 100%;
+}
+
+@media only screen and (max-width: 854px){
+    .modaltrform .pass, .modaltrform select{
+        width: 200px;
+    }
+    .modaltrform .pass{
+        margin-top: 15px;
+    }
 }

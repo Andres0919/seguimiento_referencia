@@ -1,6 +1,7 @@
 <?php
 	$referencia = new ReferenciaData();
 	$referencia->nombre = $_POST["nombre"];
+	$referencia->categoria_id = $_POST["familia"];
 	
 	$referencia->add();
 
