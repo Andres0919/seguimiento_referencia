@@ -30,7 +30,7 @@
 							<td><?php echo $refe->muestra; ?></td>
 							<td><?php echo $refe->area; ?></td>
 							<td><?php echo ($refe->isReceived)? 'Entregar': 'Recibir'; ?></td>
-							<?php if(isset($user) && $user->rol == 1){ ?>							
+							<?php if(isset($user) && $user->rol == 1){ ?>						
 							<?php } ?>																
 						</tr>
 					<?php } ?>
@@ -53,7 +53,7 @@
 	  </div>
 	  <form action="./index.php?action=addnewProcessRef" method="POST">
 		<div class="modal-body">
-			<div class="row">
+			<div class="create-header">
 				<span for="coleccion">Colección</span>
 				<input name="coleccion" list="coleccion" type="text" autocomplete="off" required>
 				<datalist id="coleccion" name="coleccion">
@@ -71,19 +71,21 @@
 					<?php } ?>
 				</datalist>
 			</div>
-			<div class="muestra">
-				<span>Muestra</span>				
-				<select name="muestra[]" id="muestra" required>
-					<option value=""></option>
-					<?php foreach($muestras as $muestra){ ?>
-					<option value="<?php echo $muestra->id ?>"><?php echo $muestra->nombre ?></option>
-					<?php } ?>
-				</select>
-				<a onclick="addMuestraSelect()">+</a>
-			</div>
-			<div class="pinta">
-				<span for="pinta">Pinta</span>
-				<input type="text" name="pinta" id="pinta" required>
+			<div class="create-body">
+				<div class="muestra">
+					<span>Muestra</span>
+					<select name="muestra[]" id="muestra" required>
+						<option value=""></option>
+						<?php foreach($muestras as $muestra){ ?>
+						<option value="<?php echo $muestra->id ?>"><?php echo $muestra->nombre ?></option>
+						<?php } ?>
+					</select>
+					<a onclick="addMuestraSelect()">+</a>
+				</div>
+				<div class="pinta">
+					<span for="pinta">Pinta</span>
+					<input type="text" name="pinta" id="pinta" required>
+				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
