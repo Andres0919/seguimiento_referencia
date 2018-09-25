@@ -40,6 +40,8 @@ modaltr .modal-body{
     width: 100%;
 }
 
+
+
 @media only screen and (max-width: 854px){
     .modaltrform .pass, .modaltrform select{
         width: 200px;
