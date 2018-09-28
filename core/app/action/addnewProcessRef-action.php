@@ -23,7 +23,7 @@
     foreach($refMues as $ref){
         $proceso->referencia_id = $ref[0]->id;
         $proceso->encargado_id = $user->id;
-        $proceso->area_id = AreaData::getAreaName('molderia')->id;
+        $proceso->area_id = AreaData::getAreaName('PROGRAMACIÓN MOLDERÍA')->id;
         array_push($procesos_id,$proceso->add());
     }
     foreach ($procesos_id as $proceso_id) {

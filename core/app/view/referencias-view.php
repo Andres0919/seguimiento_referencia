@@ -45,9 +45,9 @@
 	  <form action="./index.php?action=addReferencia" method="POST">
 		<div class="modal-body">
 			<span>Nombre</span>
-			<input name="nombre" type="text" autocomplete="off">
+			<input name="nombre" type="text" autocomplete="off" required>
 			<span>Familia</span>
-			<select name="familia" id="familia">
+			<select name="familia" id="familia" required>
 				<?php foreach($familias as $familia){ ?>
 					<option value="<?php echo $familia->id ?>"><?php echo $familia->nombre ?></option>
 				<?php } ?>

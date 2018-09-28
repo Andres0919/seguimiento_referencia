@@ -5,10 +5,10 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header" data-background-color="blue">
-				<h4 class="title">Areas</h4>
+				<h4 class="title">Áreas</h4>
 			</div>
 			<div class="card-content table-responsive">
-				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Nueva Area</a>
+				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Nueva área</a>
 				<?php if(count($areas)>0){ ?> <!--// si hay proyectos  -->
 				<table class="table table-bordered table-hover">
 					<thead>
@@ -27,7 +27,7 @@
 				</table>
 			</div>
 			<?php }else{ ?>
-			<p class='alert alert-danger'>No hay areas</p>
+			<p class='alert alert-danger'>No hay áreas</p>
 			<?php } ?>
 		</div>
 	</div>
@@ -37,7 +37,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nueva Area</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nueva área</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -45,7 +45,7 @@
 	  <form action="./index.php?action=addArea" method="POST">
 		<div class="modal-body">
 			<span>Nombre</span>
-			<input name="nombre" type="text" autocomplete="off">
+			<input name="nombre" type="text" autocomplete="off" required>
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">Crear</button>

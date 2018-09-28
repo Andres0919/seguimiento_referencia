@@ -347,3 +347,7 @@ thead {
 .modal .modal-footer button{
   margin: 5px 0;
 }
+
+.modal .modal-body{
+  display: grid;
+}

@@ -31,8 +31,8 @@ label:before {
 	margin-right: 10px;
 }
 
-label[for*='1']:before { content: '\f21d'; }
-label[for*='2']:before { content: '\f1da'; }
+label[for*='1']:before { content: '\f1da'; }
+label[for*='2']:before { content: '\f01c'; }
 
 label:hover {
 	color: #888;
@@ -54,7 +54,7 @@ input:checked + label {
 }
 
 .modal-dialog{
-    width: 60%;
+    width: 70%;
 }
 
 .modal .modal-body .header{
@@ -66,8 +66,13 @@ input:checked + label {
     display: grid; 
 }
 
+.modal .modal-body .seguimiento{
+    grid-area: down;
+    display: grid; 
+}
+
 .modal .modal-body select, .modal .modal-body .pass{
-    width: 80%;
+    width: 200px;
     height: 22px;
 }
 
@@ -76,11 +81,14 @@ input:checked + label {
     justify-self: flex-end;
 }
 
+
+
 .modal-body{
     display: grid;
     grid-template-areas:
-        'left left . right';
-    grid-gap: 100px;
+		'left left . right'
+		'down down down down';
+    grid-gap:50px;
 }
 
 .modal .modal-body .header .nameRef{

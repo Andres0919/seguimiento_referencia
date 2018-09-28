@@ -21,10 +21,10 @@ if(Session::getUID()!=""){
 			    	<form accept-charset="UTF-8" role="form" method="post" action="index.php?action=processlogin">
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="Usuario" name="nombre" type="text">
+								<input class="form-control" placeholder="Usuario" name="nombre" type="text" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
+								<input class="form-control" placeholder="Contraseña" name="password" type="password" value="" required>
 							</div>
 							<input class="btn btn-primary btn-block" type="submit" value="Iniciar Sesion">
 						</fieldset>
