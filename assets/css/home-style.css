@@ -1,52 +1,70 @@
 .modal-dialog{
-    width: 60%;
+    width: 70%;
 }
 
-.modaltr.modal-body .header{
+.modaltr .modal-body .header{
     grid-area: left;
 }
 
-.modaltr.modal-body .body{
+.modaltr .modal-body .body{
     grid-area: right;
     display: grid; 
 }
 
-.modaltr.modal-body select, .modaltr.modal-body .pass{
-    width: 80%;
+.modaltr .modal-body select, .modaltr .modal-body .pass{
+    width: 200px;
     height: 22px;
 }
 
 
-.modaltr.modal-body input,.modaltr.modal-body select{
+.modaltr .modal-body input,.modaltr .modal-body select{
     justify-self: flex-end;
 }
 
-modaltr .modal-body{
+.modaltr .modal-body{
     display: grid;
     grid-template-areas:
         'left left . right';
-    grid-gap: 100px;
+    grid-gap: 50px;
 }
 
-.modaltr.modal-body .header .nameRef{
+.modaltr .modal-body .header .nameRef{
     font-size: 2em;
 }
 
-.copia{
-    margin-left: 17%;
-}
-
-.modaltr.modal-footer{
+.modaltr .modal-footer{
     width: 100%;
 }
 
+.modal .create-header{
+    display: grid;
+    margin-bottom: 15px;
+}
 
+.modal .create-body{
+    display: grid;
+    grid-template-areas: 'left right';
+    grid-gap: 50px;
+}
+
+.modal .create-body .muestra{
+    display: grid;
+}
+
+.modal .create-body .muestra span a{
+    font-size: 20px;
+}
+
+.modal .create-body .pinta{
+    display: grid;
+    height: 20px;
+}
 
 @media only screen and (max-width: 854px){
-    .modaltrform .pass, .modaltrform select{
+    .modaltr form .pass, .modaltrform select{
         width: 200px;
     }
-    .modaltrform .pass{
+    .modaltr form .pass{
         margin-top: 15px;
     }
 }

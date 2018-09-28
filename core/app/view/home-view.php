@@ -73,14 +73,14 @@
 			</div>
 			<div class="create-body">
 				<div class="muestra">
-					<span>Muestra</span>
+					<span>Muestra <a onclick="addMuestraSelect()">+</a></span>
 					<select name="muestra[]" id="muestra" required>
 						<option value=""></option>
 						<?php foreach($muestras as $muestra){ ?>
 						<option value="<?php echo $muestra->id ?>"><?php echo $muestra->nombre ?></option>
 						<?php } ?>
 					</select>
-					<a onclick="addMuestraSelect()">+</a>
+					
 				</div>
 				<div class="pinta">
 					<span for="pinta">Pinta</span>
@@ -114,7 +114,7 @@
 			<div class="body">
 				<span id="pinRecibida"></span><br/>
 				<?php if(!$user){ ?>
-				<input type="password" class="pass" name="pass" required>
+				<input type="password" class="pass" name="pass" placeholder="ingresar contraseña" required>
 				<?php } ?>
 			</div>
 		</div>
@@ -151,7 +151,7 @@
 							<?php  } ?>
 						</select> <br/>
 						<?php if(!$user){ ?>
-						<input type="password" class="pass" name="pass" required>
+						<input type="password" class="pass" name="pass" placeholder="ingresar contraseña" required>
 						<?php } ?>
 					</div>
 				</div>
@@ -206,7 +206,7 @@
 				colRecibida.innerHTML = response.coleccion;
 				mueRecibida.innerHTML = response.muestra;
 				pinRecibida.innerHTML = '';
-				response.pinta.forEach((pin) => pinRecibida.innerHTML += `#${pin.codigo}` );
+				response.pinta.forEach((pin) => pinRecibida.innerHTML += `#${pin.codigo} ` );
 
 			}
 		});
@@ -245,7 +245,7 @@
 					check.value = pin.codigo;
 					console.log(check.checked);
 					pinEntrega.appendChild(check);
-					pinEntrega.innerHTML += `#${pin.codigo}`;
+					pinEntrega.innerHTML += `#${pin.codigo} `;
 				});
 
 			}

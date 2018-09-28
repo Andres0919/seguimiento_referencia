@@ -1,9 +1,8 @@
 <?php
 	$user = Core::$user;
-	 $activas = ProcessData::getAllActiveGroup();
-	 $allProcess = ProcessData::getAll();
-	 $processMolderia = ProcessData::getAllMolderia();
-	 $areas = AreaData::getAll();
+	$allProcess = ProcessData::getAll();
+	$processMolderia = ProcessData::getAllMolderia();
+	$areas = AreaData::getAll();
  ?>
 <div class="row"> 
 	<div class="col-md-12">
@@ -13,69 +12,21 @@
   			</div>
 			<main>
 				<input id="tab1" type="radio" name="tabs" checked>
-				<label for="tab1">EN CURSO</label>
-				<input id="tab2" type="radio" name="tabs">
-				<label for="tab2">HISTORICO</label>
+				<label for="tab1">HISTORICO</label>
 				<?php if($user != null && ($user->nombre == 'admin' || $user->area_id == 4)){ ?>
-				<input id="tab3" type="radio" name="tabs">
-				<label for="tab3">MOLDERÍA</label>
+				<input id="tab2" type="radio" name="tabs">
+				<label for="tab2">MOLDERÍA</label>
 				<?php } ?>
 				<section id="content1">
-					<div class="card-content table-responsive">
-						<?php if(count($activas)>0){ ?> <!--// si hay tickets -->
-						<table class="table table-bordered table-hover">
-							<thead>
-								<th>COLECCIÓN</th>
-								<th>REFERENCIA</th>
-								<th>ESTADO MUESTRA</th>
-								<th>AREA</th>
-								<th>ENCARGADO</th>
-								<th style="width:120px;"></th>
-							</thead>
-							<?php
-								foreach($activas as $activa){
-							?>
-							<tr>
-								<td><?php echo $activa->coleccion; ?></td>
-								<td><?php echo $activa->referencia; ?></td>
-								<td><?php echo $activa->muestra ?></td>
-								<td><?php echo $activa->area; ?></td>
-								<td><?php echo ($activa->encargado != 'admin')? $activa->encargado : '-'; ?></td>
-								<td style="width:120px;" class="td-actions">
-									<?php echo ($activa->isReceived) ? 'RECIBIDO' : 'NO RECIBIDO' ?>
-								</td>
-							</tr>
-						<?php } ?>
-						</table> 
-						<?php }else{ ?>
-						<p class='alert alert-danger'>No hay referencias en curso</p>
-						<?php } ?>
-					</div>
-				</section>
-				<section id="content2">
 					<div class="card-content table-responsive">
 						<?php if(count($allProcess)>0){ ?> <!--// si hay tickets -->
 						<table class="table table-bordered table-hover">
 							<thead>
 								<th>COLECCIÓN</th>
-								<th>REFERENCIA</th>
-								<th>MUESTRA</th>
 							</thead>
-							<?php
-								foreach($allProcess as $process){
-							?>
-							<tr>
+							<?php foreach($allProcess as $process){	?>
+							<tr data-toggle="modal" data-target="#infoModal" onclick="getRef(<?php echo $process->coleccion_id ?>)">
 								<td><?php echo $process->coleccion; ?></td>
-								<td><?php echo $process->referencia; ?></td>
-								<td><?php echo $process->muestra; ?></td>
-							</tr>
-							<tr class="collapse" id="<?php echo $ticket->id; ?>">
-								<td colspan="6" style="padding:0;" >	 
-									<form class="form-group" method="POST" action="index.php?action=addcomment&id=<?php echo $ticket->id;?>">
-										<textarea class="form-control col-md-12" id="comentario" name="comentario"  placeholder="Comentario..." ></textarea>
-										<input type="submit" class="btn btn-primary btn-xs" value="Enviar">
-									</form>
-								</td>
 							</tr>
 						<?php } ?>
 						</table> 
@@ -84,7 +35,7 @@
 						<?php } ?>
 					</div>
 				</section>
-				<section id="content3">
+				<section id="content2">
 					<div class="card-content table-responsive">
 						<?php if(count($processMolderia)>0){ ?> <!--// si hay tickets -->
 						<table class="table table-bordered table-hover">
@@ -147,6 +98,29 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >SEGUIMIENTO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+	  </div>
+		<div class="modal-body">
+			<div class="header">
+				<span id="coleccion" class="nameRef"></span>
+			</div>
+			<div class="seguimiento">
+				<table class="table">
+					<tbody id="tableRef">
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
+  </div>
+</div>
 <script>
 	function entregarRef(id){
 		let refEntrega = document.querySelector('#refEntrega');
@@ -165,7 +139,7 @@
 			beforeSend: function () {
 			},
 			success:  function (response) {
-				console.log(response);
+				// console.log(response);
 				idInput.value = response.id;
 				refEntrega.innerHTML = response.referencia;
 				colEntrega.innerHTML = response.coleccion;
@@ -180,9 +154,44 @@
 					check.name = 'pinta[]';
 					check.value = pin.codigo;
 					pinEntrega.appendChild(check);
-					pinEntrega.innerHTML += `#${pin.codigo}`;
+					pinEntrega.innerHTML += `#${pin.codigo} `;
 				});
 
+			}
+		});
+	}
+
+	function getRef(id){
+		let coleccion = document.querySelector('#coleccion');
+		let tableRef = document.querySelector('#tableRef');
+		params = {
+			'id': id,
+		}
+
+		$.ajax({
+			data:  params,
+			url:   './?action=getRefByColeccion',
+			dataType: 'json',
+			type:  'get',
+			beforeSend: function () {
+			},
+			success (response) {
+				console.log(response);
+				coleccion.innerHTML = response[0].coleccion;
+				while (tableRef.hasChildNodes()){
+					tableRef.removeChild(tableRef.childNodes[0]);
+				}
+				response.forEach(row => {
+					let tr = document.createElement('tr');
+					let td1 = document.createElement('td');
+					let td2 = document.createElement('td');
+					tr.setAttribute('onclick', `window.location.href = './index.php?view=seguimientoReferencia&id=${row.id}'`);
+					td1.innerHTML = row.referencia;
+					td2.innerHTML = row.muestra;
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					tableRef.appendChild(tr);
+				});
 			}
 		});
 	}

@@ -10,7 +10,6 @@ class ColeccionData {
 	public function getPriority(){ return PriorityData::getById($this->priority_id); }
 	public function getStatus(){ return StatusData::getById($this->status_id); }
 	public function getKind(){ return KindData::getById($this->kind_id); }
-	public function getReference(){ return CategoryData::getById($this->reference_id); }
 	public function getUser(){ return UserData::getById($this->asigned_id); }
 	public function getGenerated(){return UserData::getById($this->generated_id);}
 
@@ -126,31 +125,22 @@ class ColeccionData {
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new ColeccionData());
 	}
+
+	public function getAllRefByColeccion(){
+		$sql = "select r.nombre as referencia, c.nombre as coleccion, em.nombre as muestra,  rm.* from ".self::$tablename." c ";
+		$sql .= "inner join ".self::$tablename2." rc ";
+		$sql .= "on c.id = rc.coleccion_id ";
+		$sql .= "inner join referencia r ";
+		$sql .= "on r.id = rc.referencia_id ";
+		$sql .= "inner join referenciaMuestra rm ";
+		$sql .= "on rm.referenciaColeccion_id = rc.id ";
+		$sql .= "inner join estadoMuestra em ";
+		$sql .= "on rm.muestra_id = em.id ";
+		$sql .= "where c.id=$this->id ";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new ColeccionData());
+	}
 	
-	public static function getAllFinished(){ 
-		$sql = "select * from ".self::$tablename." where status_id=3";
-		$query = Executor::doit($sql);
-		return Model::many($query[0],new ColeccionData());
-	}
-
-	public static function getAsignedUser($user_id){
-		$sql = "select * from ".self::$tablename." where status_id = 2 and asigned_id =".$user_id;
-		$query = Executor::doit($sql);
-		return Model::many($query[0], new ColeccionData()); 
-	}
-
-	public static function getAllByPacientId($id){
-		$sql = "select * from ".self::$tablename." where pacient_id=$id order by created_at";
-		$query = Executor::doit($sql);
-		return Model::many($query[0],new ColeccionData());
-	}
-
-	public static function getAllByMedicId($id){
-		$sql = "select * from ".self::$tablename." where medic_id=$id order by created_at";
-		$query = Executor::doit($sql);
-		return Model::many($query[0],new ColeccionData());
-	}
-
 	public static function getBySQL($sql){
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new ColeccionData());
@@ -168,25 +158,22 @@ class ColeccionData {
 		return Model::many($query[0],new ColeccionData());
 	}
 
-	public static function getPromAsigned(){
-		$sql = "select AVG(TIMESTAMPDIFF(HOUR, created_at,asigned_at)) dias from ".self::$tablename." where status_id = 2 or status_id = 3";
+	public static function getReference($id){
+		$sql = "select r.nombre as referencia, c.nombre as coleccion, em.nombre as muestra,ct.nombre as categoria,  rm.* from referenciaMuestra rm ";
+		$sql .= "inner join estadoMuestra em ";
+		$sql .= "on em.id = rm.muestra_id ";
+		$sql .= "inner join referenciaColeccion rc ";
+		$sql .= "on rc.id = rm.referenciaColeccion_id ";
+		$sql .= "inner join coleccion c ";
+		$sql .= "on rc.coleccion_id = c.id ";
+		$sql .= "inner join referencia r ";
+		$sql .= "on rc.referencia_id = r.id ";
+		$sql .= "inner join categoria ct ";
+		$sql .= "on r.categoria_id = ct.id ";
+		$sql .= "where rm.id=$id ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0],new ColeccionData());
+		return Model::one($query[0],new ColeccionData());
 	}
-
-	public static function getPromFromAsignedToFinished(){
-		$sql = "select AVG(TIMESTAMPDIFF(HOUR, asigned_at,finished_at)) dias from ".self::$tablename." where status_id = 3 ";
-		$query = Executor::doit($sql);
-		return Model::many($query[0],new ColeccionData());
-	}
-
-	public static function getPromFinished(){
-		$sql = "select AVG(TIMESTAMPDIFF(HOUR, created_at,finished_at)) dias from ".self::$tablename." where status_id = 3 ";
-		$query = Executor::doit($sql);
-		return Model::many($query[0],new ColeccionData());
-	}
-
-
 }
 
 ?>

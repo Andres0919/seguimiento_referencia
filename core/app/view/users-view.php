@@ -54,18 +54,20 @@
 	  <form action="./index.php?action=addUser" method="POST">
 		<div class="modal-body">
 			<span>Usuario</span>
-			<input type="text" name="usuario">
+			<input type="text" name="usuario" required>
 			<span>Contraseña</span>
-			<input type="text" name="contra">
-			<span>Administrador</span><input type="radio" name="rol" value="1" checked>
-			<span>Usuario</span><input type="radio" name="rol" value="2">
-			<select name="planta_id" id="planta_id">
+			<input type="text" name="contra" required>
+			<div>
+				<input type="radio" name="rol" value="1" checked><span> Administrador</span>
+				<input type="radio" name="rol" value="2"><span> Usuario</span>
+			</div>
+			<select name="planta_id" id="planta_id" required>
 				<option value=""></option>
 				<?php foreach ($plantas as $planta) { ?>
 					<option value="<?php echo $planta->id ?>"><?php echo $planta->nombre ?></option>
 				<?php } ?>
 			</select>
-			<select name="area_id" id="area_id">
+			<select name="area_id" id="area_id" required>
 				<option value=""></option>
 				<?php foreach ($areas as $area) { ?>
 					<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>

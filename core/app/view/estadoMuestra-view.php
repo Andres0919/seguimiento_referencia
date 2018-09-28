@@ -44,7 +44,7 @@
 	  <form action="./index.php?action=addEstadoMuestra" method="POST">
 		<div class="modal-body">
 			<span>Nombre</span>
-			<input name="nombre" type="text" autocomplete="off">
+			<input name="nombre" type="text" autocomplete="off" required>
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">Crear</button>

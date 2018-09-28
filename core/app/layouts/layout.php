@@ -59,7 +59,7 @@
           <li>
             <a href="./?view=areas">
               <i class="fa fa-map-marker"></i>
-              <p>Areas</p>
+              <p>Áreas</p>
             </a>
           </li>
           <li>

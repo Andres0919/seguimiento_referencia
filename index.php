@@ -1,7 +1,4 @@
 <?php
-/**
-* @author evilnapsis
-**/
 
 define("ROOT", dirname(__FILE__));
 
