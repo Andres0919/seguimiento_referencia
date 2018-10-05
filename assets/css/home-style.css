@@ -67,4 +67,13 @@
     .modaltr form .pass{
         margin-top: 15px;
     }
+
+    .search input{
+        display: 'none';
+    }
+}
+
+.search input{
+    width: 50%;
+    margin: 1em auto;
 }

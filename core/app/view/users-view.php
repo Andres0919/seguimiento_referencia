@@ -29,8 +29,8 @@
 							<td><?php echo $user->planta; ?></td>
 							<td><?php echo $user->area; ?></td>
 							<td style="width:180px;">
-							<a href="index.php?view=edituser&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs" title="Editar">Editar</a>
-							<a href="index.php?action=deluser&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs" title="Eliminar" >Eliminar</a>
+							<!-- <a href="index.php?view=edituser&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs" title="Editar">Editar</a>
+							<a href="index.php?action=deluser&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs" title="Eliminar" >Eliminar</a> -->
 							</td>
 						</tr>
 					<?php }	?>
@@ -62,13 +62,13 @@
 				<input type="radio" name="rol" value="2"><span> Usuario</span>
 			</div>
 			<select name="planta_id" id="planta_id" required>
-				<option value=""></option>
+				<option value="">-- Seleccionar Planta --</option>
 				<?php foreach ($plantas as $planta) { ?>
 					<option value="<?php echo $planta->id ?>"><?php echo $planta->nombre ?></option>
 				<?php } ?>
 			</select>
 			<select name="area_id" id="area_id" required>
-				<option value=""></option>
+				<option value="">-- Seleccionar Área --</option>
 				<?php foreach ($areas as $area) { ?>
 					<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
 				<?php } ?>

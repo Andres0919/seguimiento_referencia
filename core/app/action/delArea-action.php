@@ -4,6 +4,7 @@
 
     $area->del();
 
-    $alert = "Area Eliminada";
-    Core::redir("./index.php?view=areas&alert=".$alert);
+    $params[0] = "Area Eliminada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=areas",$params);
 ?>

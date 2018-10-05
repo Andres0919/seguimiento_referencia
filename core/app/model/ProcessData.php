@@ -82,7 +82,7 @@ class ProcessData {
 		$sql .= "on p.area_id = a.id ";
 		$sql .= "inner join usuario u ";
 		$sql .= "on p.encargado_id = u.id ";
-		$sql .= "where p.estado=1 and a.nombre <> 'PROGRAMACIÓN MOLDERÍA'";
+		$sql .= "where p.estado=1 ";
 		$sql .= " order by p.id asc";
 
 		$query = Executor::doit($sql);
@@ -166,6 +166,52 @@ class ProcessData {
 
 	public static function getPintasByProcess($id){
 		$sql = "select * from pinta where proceso_id= $id";
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new ProcessData());
+	}
+
+	public static function getAllRefByCole($id){
+		$sql = "select r.nombre as referencia, c.nombre as coleccion, em.nombre as muestra, a.nombre as area, u.nombre as encargado, p.* from ".self::$tablename." p ";
+		$sql .= "inner join referenciaMuestra rm ";
+		$sql .= "on p.referenciamuestra_id = rm.id ";
+		$sql .= "inner join referenciacoleccion rc ";
+		$sql .= "on rm.referenciacoleccion_id = rc.id ";
+		$sql .= "inner join referencia r ";
+		$sql .= "on r.id = rc.referencia_id ";
+		$sql .= "inner join coleccion c ";
+		$sql .= "on rc.coleccion_id = c.id ";
+		$sql .= "inner join estadomuestra em ";
+		$sql .= "on rm.muestra_id = em.id ";
+		$sql .= "inner join area a ";
+		$sql .= "on p.area_id = a.id ";
+		$sql .= "inner join usuario u ";
+		$sql .= "on p.encargado_id = u.id ";
+		$sql .= "where p.estado=1 and a.id = $id";
+		$sql .= " order by p.id asc";
+
+		$query = Executor::doit($sql);
+		return Model::many($query[0],new ProcessData());
+	}
+
+	public static function getAllActivePublic(){
+		$sql = "select r.nombre as referencia, c.nombre as coleccion, em.nombre as muestra, a.nombre as area, u.nombre as encargado, p.* from ".self::$tablename." p ";
+		$sql .= "inner join referenciaMuestra rm ";
+		$sql .= "on p.referenciamuestra_id = rm.id ";
+		$sql .= "inner join referenciacoleccion rc ";
+		$sql .= "on rm.referenciacoleccion_id = rc.id ";
+		$sql .= "inner join referencia r ";
+		$sql .= "on r.id = rc.referencia_id ";
+		$sql .= "inner join coleccion c ";
+		$sql .= "on rc.coleccion_id = c.id ";
+		$sql .= "inner join estadomuestra em ";
+		$sql .= "on rm.muestra_id = em.id ";
+		$sql .= "inner join area a ";
+		$sql .= "on p.area_id = a.id ";
+		$sql .= "inner join usuario u ";
+		$sql .= "on p.encargado_id = u.id ";
+		$sql .= "where p.estado=1 and (a.nombre = 'INSUMOS' or a.nombre = 'CORTE') ";
+		$sql .= " order by p.id asc";
+
 		$query = Executor::doit($sql);
 		return Model::many($query[0],new ProcessData());
 	}

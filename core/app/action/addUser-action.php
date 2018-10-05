@@ -6,6 +6,8 @@
     $user->planta_id = $_POST['planta_id'];
     $user->area_id = $_POST['area_id'];
     $user->add();
-    $alert = "Usuario Creado";
-	Core::redir("./index.php?view=users&alert=".$alert);
+
+    $params[0] = "Usuario Creado";
+	$params[1] = "success";
+	Core::redir("./index.php?view=users",$params);
 ?>

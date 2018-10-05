@@ -1,6 +1,12 @@
 <?php 
 	$user = Core::$user;
-	$references = ProcessData::getAllActive();
+	if($user != '' && $user->nombre == 'admin'){
+		$references = ProcessData::getAllActive();
+	}elseif($user != ''){
+		$references = ProcessData::getAllRefByCole($user->area_id);
+	}else{
+			$references = ProcessData::getAllActivePublic();
+	}
 	$colecciones = ColeccionData::getAll();
 	$referencias = ReferenciaData::getAll();
 	$muestras = KindData::getAll();
@@ -11,11 +17,14 @@
 	<div class="col-md-12">
 		<div class="card">
   			<div class="card-content table-responsive">
-			  	<?php if(isset($user) && $user->rol = 1 ){ ?>
+			  	<?php if(isset($user) && $user->rol = 1 && $user->area_id = 19 ){ ?>
 					<a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">INICIO REFERENCIA</a>
-				  <?php } ?>
+					<?php } ?>
 				<?php if(count($references)>0){// si hay usuarios ?>
-				<table class="table table-bordered table-hover">
+					<form class="search">
+            <input id="searchTerm" placeholder="BUSCAR REFERENCIA..." type="text" onkeyup="doSearch()" autocomplete="off" />
+					</form>
+				<table class="table table-bordered table-hover" id="datos">
 					<thead>
 						<th>COLECCIÓN</th>
 						<th>REFERENCIA</th>
@@ -107,9 +116,9 @@
 	  <form action="./index.php?action=recibirProcessRef" method="POST">
 		<div class="modal-body">
 			<div class="header">
-				<p id="refRecibida" class="nameRef"></p>
-				<span id="mueRecibida"></span><br/>
-				<span id="colRecibida"></span>
+				<b><p id="refRecibida" class="nameRef"></p></b>
+				<em><span id="mueRecibida"></span></em><br/>
+				<b><span id="colRecibida"></span></b>
 			</div>
 			<div class="body">
 				<span id="pinRecibida"></span><br/>
@@ -138,17 +147,24 @@
 			<form action="./index.php?action=entregaProcessRef" method="POST">
 				<div class="modal-body">
 					<div class="header">
-						<p id="refEntrega" class="nameRef"></p>
-						<span id="mueEntrega"></span><br/>
-						<span id="colEntrega"></span>			
+						<b><p id="refEntrega" class="nameRef"></p></b>
+						<em><span id="mueEntrega"></span></em><br/>
+						<b><span id="colEntrega"></span></b>
 					</div>
 					<div class="body">
 						<span id="pinEntrega"></span><br/>
 						<select name="area_id" id="area" required>
-							<option value=""></option>
 							<?php foreach ($areas as $area) { ?>
+								<?php if($user != '' && $user->area_id == 19 && $area->id == 17){ ?>
+									<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
+								<?php }elseif($user != '' && $user->area_id == 17 && $area->id == 18){ ?>
+									<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
+								<?php }elseif($user != '' && $user->area_id == 18 && $area->id == 10){ ?>
+									<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
+								<?php  }elseif($user == '' && ($area->id != 19 || $area->id != 17 || $area->id != 18)){ ?>
 								<option value="<?php echo $area->id ?>"><?php echo $area->nombre ?></option>
-							<?php  } ?>
+								<?php } ?>
+							<?php } ?>
 						</select> <br/>
 						<?php if(!$user){ ?>
 						<input type="password" class="pass" name="pass" placeholder="ingresar contraseña" required>
@@ -164,7 +180,7 @@
   </div>
 </div>
 <script>
-	function addMuestraSelect() {
+	function addMuestraSelect(){
 		let div = document.querySelector('.muestra');
 		let options = document.querySelector('#muestra').options;
 		
@@ -251,5 +267,36 @@
 			}
 		});
 	}
-	
+	function doSearch(){
+			var tableReg = document.getElementById('datos');
+			var searchText = document.getElementById('searchTerm').value;
+			var cellsOfRow="";
+			var found=false;
+			var compareWith="";
+
+			// Recorremos todas las filas con contenido de la tabla
+			for (var i = 1; i < tableReg.rows.length; i++)
+			{
+					cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+					found = false;
+					// Recorremos todas las celdas
+					for (var j = 0; j < cellsOfRow.length && !found; j++)
+					{
+							compareWith = cellsOfRow[j].innerHTML;
+							// Buscamos el texto en el contenido de la celda
+							if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
+							{
+									found = true;
+							}
+					}
+					if(found)
+					{
+							tableReg.rows[i].style.display = '';
+					} else {
+							// si no ha encontrado ninguna coincidencia, esconde la fila de la tabla
+							tableReg.rows[i].style.display = 'none';
+					}
+			}
+	}
+        
 </script>

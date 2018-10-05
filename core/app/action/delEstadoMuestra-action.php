@@ -4,6 +4,7 @@
 
     $estado->del();
 
-    $alert = "Estado Muestra Eliminado";
-    Core::redir("./index.php?view=estadoMuestra&alert=".$alert);
+    $params[0] = "Estado Muestra Eliminado";
+	$params[1] = "success";
+	Core::redir("./index.php?view=estadoMuestra",$params);
 ?>

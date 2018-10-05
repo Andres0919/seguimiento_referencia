@@ -5,6 +5,7 @@
 	
 	$referencia->add();
 
-	$alert = "Referencia Creada";
-	Core::redir("./index.php?view=referencias&alert=".$alert);
+	$params[0] = "Referencia Creada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=referencias",$params);
 ?>

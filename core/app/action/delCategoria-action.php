@@ -4,6 +4,7 @@
 
     $categoria->del();
 
-    $alert = "Categoria Eliminada";
-    Core::redir("./index.php?view=categoria&alert=".$alert);
+    $params[0] = "Categoria Eliminada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=categoria",$params);
 ?>

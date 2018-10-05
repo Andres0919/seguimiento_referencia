@@ -33,6 +33,7 @@
             $pinta->add();
         }
     }
-    $alert = "REFERENCIA INICIADA";
-    Core::redir("./index.php?view=home&alert=".$alert);
+    $params[0] = "REFERENCIA INICIADA";
+	$params[1] = "success";
+	Core::redir("./index.php?view=home",$params);
 ?>

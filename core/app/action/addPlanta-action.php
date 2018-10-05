@@ -4,6 +4,7 @@
 
     $planta->add();
 
-    $alert = "Planta Creada";
-    Core::redir("./index.php?view=plantas&alert=".$alert);
+    $params[0] = "Planta Creada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=plantas",$params);
 ?>

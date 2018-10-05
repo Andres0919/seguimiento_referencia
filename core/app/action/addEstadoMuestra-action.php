@@ -3,6 +3,7 @@
     $estado->nombre = $_POST['nombre'];
     $estado->add();
 
-    $alert = "Estado Muestra Creado";
-    Core::redir("./index.php?view=estadoMuestra&alert=".$alert);
+    $params[0] = "Estado Muestra Creado";
+	$params[1] = "success";
+	Core::redir("./index.php?view=estadoMuestra",$params);
 ?>

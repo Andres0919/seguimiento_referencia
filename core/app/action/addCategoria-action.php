@@ -4,8 +4,8 @@
 	
 	$categoria->add();
 
-
-	$alert = "Categoria Creada";
-	Core::redir("./index.php?view=categoria&alert=".$alert);
+	$params[0] = "Categoria Creada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=categoria",$params);
 
 ?>

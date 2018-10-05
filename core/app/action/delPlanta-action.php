@@ -4,6 +4,7 @@
 
     $planta->del();
 
-    $alert = "Planta Eliminada";
-    Core::redir("./index.php?view=plantas&alert=".$alert);
+    $params[0] = "Planta Eliminada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=plantas",$params);
 ?>

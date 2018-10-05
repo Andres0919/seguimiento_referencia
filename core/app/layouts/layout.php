@@ -50,6 +50,7 @@
                   <p>Referencias</p>
               </a>
           </li>
+          <?php if(isset($_SESSION['user_id']) && (Core::$user->id == 1 || Core::$user->id == 5) ){ ?>
           <li>
             <a href="./?view=categoria">
               <i class="fa fa-cubes"></i>
@@ -68,6 +69,8 @@
               <p>Estado Muestra</p>
             </a>
           </li>
+          <?php } ?>
+          <?php if(isset($_SESSION['user_id']) && (Core::$user->id == 1 || Core::$user->id == 4 || Core::$user->id == 5) ){ ?>
           <li>
             <a href="./?view=plantas">
               <i class="fa fa-building"></i>
@@ -81,14 +84,16 @@
             </a>
           </li>
           <?php } ?>
+          <?php } ?>
         </ul>
       </div>
     </div>
     <div class="main-panel">
-      <?php if(isset($_GET['alert'])){ 
-          $alert = $_GET['alert'];
+      <?php if(isset($_COOKIE['text']) && $_COOKIE['text'] != ''){ 
+          $alert = $_COOKIE['text'];
+          $type = $_COOKIE['type'];
         ?>
-        <div class="alert alert-layout alert-success" id="alert">
+        <div class="alert alert-layout alert-<?php echo $type ?>" id="alert">
           <strong><?php echo $alert ?>.</strong>
         </div>
       <?php  } ?> 

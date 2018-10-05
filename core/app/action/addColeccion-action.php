@@ -4,8 +4,8 @@
 	
 	$coleccion->add();
 
-
-	$alert = "Coleccion creada";
-	Core::redir("./index.php?view=coleccion&alert=".$alert);
+	$params[0] = "Coleccion creada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=coleccion",$params);
 
 ?>

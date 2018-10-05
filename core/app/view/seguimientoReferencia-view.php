@@ -13,14 +13,14 @@
 					<a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">INICIO REFERENCIA</a>
                 <?php } ?>
                 <div>
-                    <h3><?php echo $reference->referencia ?></h3>
+                    <h3><b><?php echo $reference->referencia ?></b></h3>
                     <p><?php echo $reference->categoria ?></p>
-                    <p><?php echo $reference->muestra ?></p>
-                    <p><?php echo $reference->coleccion ?></p>
+                    <p><em><?php echo $reference->muestra ?></em></p>
+                    <p><b><?php echo $reference->coleccion ?></b></p>
                 </div>
                 <table>
                     <thead>
-                        <td>AREA</td>
+                        <td>ÁREA</td>
                         <td>ENCARGADO</td>
                         <td>FECHA INICIO</td>
                         <td>PINTAS</td>
@@ -29,11 +29,11 @@
                     <?php $pintas = ProcessData::getPintasByProcess($proceso->id) ?>
                     <tr>
                         <td><?php echo $proceso->area ?></td>
-                        <td><?php echo $proceso->encargado ?> </td>
+                        <td><?php echo ($proceso->encargado == 'admin' )? 'Sin recibir' : $proceso->encargado ?> </td>
                         <td><?php echo ($proceso->fecha_inicio == '0000-00-00 00:00:00')? 'Sin recibir' : substr($proceso->fecha_inicio,0,11) ?></td>
                         <td>
                             <?php foreach ($pintas as $pinta ) { ?>
-                                <p><?php echo $pinta->codigo ?> - <?php echo ($pinta->fecha_fin == '0000-00-00 00:00:00' )? 'En curso' : substr($pinta->fecha_fin, 0,11)  ?> </p>
+                                <p><?php echo $pinta->codigo ?> -> <?php echo ($pinta->fecha_fin == '0000-00-00 00:00:00' )? 'En curso' : substr($pinta->fecha_fin, 0,11)  ?> </p>
                             <?php } ?>
                         </td>
                     </tr>

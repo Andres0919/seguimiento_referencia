@@ -4,8 +4,8 @@
 	
 	$area->add();
 
-
-	$alert = "Area Creada";
-	Core::redir("./index.php?view=areas&alert=".$alert);
+	$params[0] = "Area Creada";
+	$params[1] = "success";
+	Core::redir("./index.php?view=areas",$params);
 
 ?>
